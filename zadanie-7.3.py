@@ -30,7 +30,7 @@ class BaseContact:
     def label_length(self):
         self._label_length = len(self.imie) + len(self.nazwisko)
         print(self._label_length)
-
+        return(self._label_length)
 
 class BusinessContact(BaseContact):
     def __init__(self, stanowisko, firma, telefonsluzbowy, *args, **kwargs):
@@ -52,8 +52,6 @@ def create_contacts(typ, ilosc):
 
     remaining_cards = int(ilosc)
 
-    index_number = 1
-
     if typ == "N":
         while remaining_cards > 0:
             czlowiek = BaseContact(
@@ -63,7 +61,6 @@ def create_contacts(typ, ilosc):
                 email=fake.email(),
             )
             list.append(czlowiek)
-            index_number += 1
             remaining_cards -= 1
 
     elif typ == "B":
@@ -78,7 +75,6 @@ def create_contacts(typ, ilosc):
                 telefonsluzbowy=random.randint(100000000, 999999999),
             )
             list.append(czlowiek)
-            index_number += 1
             remaining_cards -= 1
 
     else:
