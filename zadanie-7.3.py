@@ -1,5 +1,3 @@
-import sys
-import logging
 import random
 from faker import Faker
 
@@ -29,8 +27,8 @@ class BaseContact:
     @property
     def label_length(self):
         self._label_length = len(self.imie) + len(self.nazwisko)
-        print(self._label_length)
-        return(self._label_length)
+        return self._label_length
+
 
 class BusinessContact(BaseContact):
     def __init__(self, stanowisko, firma, telefonsluzbowy, *args, **kwargs):
@@ -60,7 +58,7 @@ def create_contacts(typ, ilosc):
                 telefon=random.randint(100000000, 999999999),
                 email=fake.email(),
             )
-            list.append(czlowiek)
+            cards_list.append(czlowiek)
             remaining_cards -= 1
 
     elif typ == "B":
@@ -74,7 +72,7 @@ def create_contacts(typ, ilosc):
                 firma=fake.company(),
                 telefonsluzbowy=random.randint(100000000, 999999999),
             )
-            list.append(czlowiek)
+            cards_list.append(czlowiek)
             remaining_cards -= 1
 
     else:
@@ -83,32 +81,38 @@ def create_contacts(typ, ilosc):
 
 if __name__ == "__main__":
 
-    list = []
+    cards_list = []
 
     create_contacts(
         input(
             "proszę wybrać rodzaj karty ('N' dla BaseContact lub 'B' dla BusinessContact):"
         ),
-        input(
-            "oraz ilość kart do wygenerowania:"
-        ),
+        input("oraz ilość kart do wygenerowania:"),
     )
 
     # drukowanie listy.
 
-    print(list)
+    print(cards_list)
 
     # poniższy kod dodaje do programu pytanie sprawdzające funkcję "contact" i zwraca połączenie z wybraną osobą.
 
     person = int(input("wybierz do kogo z kolei na liście chcesz zadzwonić:"))
-    list[person - 1].contact()
+    cards_list[person - 1].contact()
 
     # poniższy kod dodaje do programu pytanie sprawdzające atrybut "label_length" i zwraca wyliczoną długość.
 
-    person = int(input("wybierz czyją z kolei na liście długość imienia i nazwiska chcesz poznać:"))
-    list[person - 1].label_length
+    pycharm_var = cards_list[
+        int(
+            input(
+                "wybierz czyją z kolei na liście długość imienia i nazwiska chcesz poznać:"
+            )
+        )
+        - 1
+    ].label_length
+    print(pycharm_var)
 
-    # odblokuj poniższe aby dodać do programu sortowanie listy po konkretnych parametrach i wydrukowanie jej w celu sprawdzenia poprawności.
+    # odblokuj poniższe aby dodać do programu sortowanie listy po konkretnych parametrach, oraz
+    # wydrukowanie jej w celu sprawdzenia poprawności.
 
     # by_imie = sorted(list, key=lambda Card: Card.imie)
     # print(by_imie)
