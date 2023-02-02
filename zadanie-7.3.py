@@ -48,6 +48,7 @@ class BusinessContact(BaseContact):
 
 def create_contacts(typ, ilosc):
 
+    create_contacts_list = []
     remaining_cards = int(ilosc)
 
     if typ == "N":
@@ -58,7 +59,7 @@ def create_contacts(typ, ilosc):
                 telefon=random.randint(100000000, 999999999),
                 email=fake.email(),
             )
-            cards_list.append(czlowiek)
+            create_contacts_list.append(czlowiek)
             remaining_cards -= 1
 
     elif typ == "B":
@@ -72,18 +73,18 @@ def create_contacts(typ, ilosc):
                 firma=fake.company(),
                 telefonsluzbowy=random.randint(100000000, 999999999),
             )
-            cards_list.append(czlowiek)
+            create_contacts_list.append(czlowiek)
             remaining_cards -= 1
 
     else:
         print("zła litera?")
 
+    return create_contacts_list
+
 
 if __name__ == "__main__":
 
-    cards_list = []
-
-    create_contacts(
+    cards_list = create_contacts(
         input(
             "proszę wybrać rodzaj karty ('N' dla BaseContact lub 'B' dla BusinessContact):"
         ),
@@ -114,9 +115,9 @@ if __name__ == "__main__":
     # odblokuj poniższe aby dodać do programu sortowanie listy po konkretnych parametrach, oraz
     # wydrukowanie jej w celu sprawdzenia poprawności.
 
-    # by_imie = sorted(list, key=lambda Card: Card.imie)
+    # by_imie = sorted(cards_list, key=lambda Card: Card.imie)
     # print(by_imie)
-    # by_nazwisko = sorted(list, key=lambda Card: Card.nazwisko)
+    # by_nazwisko = sorted(cards_list, key=lambda Card: Card.nazwisko)
     # print(by_nazwisko)
-    # by_email = sorted(list, key=lambda Card: Card.email)
+    # by_email = sorted(cards_list, key=lambda Card: Card.email)
     # print(by_email)
